@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: urban_db
+    environment:
+      POSTGRES_DB: urban_data
+      POSTGRES_USER: urban_user
+      POSTGRES_PASSWORD: urban_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - urban_pg_data:/var/lib/postgresql/data
+
+volumes:
+  urban_pg_data:
