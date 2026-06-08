@@ -1,14 +1,17 @@
 """Подключение к базе данных."""
 
+import os
 from collections.abc import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-engine = create_engine(
-    "postgresql+psycopg://urban_user:urban_password@localhost:5433/urban_data",
-    pool_pre_ping=True,
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql+psycopg://urban_user:urban_password@db:5432/urban_data",
 )
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(
     bind=engine,
